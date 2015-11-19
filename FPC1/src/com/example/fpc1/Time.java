@@ -5,23 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.lang.Object;
 import java.util.*;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
-
 import java.text.DateFormat;
-
 import org.joda.time.*;
 import org.joda.time.format.ISODateTimeFormat;
-
 import android.app.Activity;
 import android.util.Log;
-
 public class Time extends Activity {
-	
+
 	public Time(){
 
 	// ISO 8601の日付け生成
@@ -33,7 +28,6 @@ public class Time extends Activity {
 	} catch (ParseException e1) {
 		// TODO 自動生成された catch ブロック
 		e1.printStackTrace();
-	}
-	
+	}	
 }
 }
