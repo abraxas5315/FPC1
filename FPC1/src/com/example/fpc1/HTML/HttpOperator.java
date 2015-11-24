@@ -46,7 +46,6 @@ public class HttpOperator {
     public HttpOperator(String url, String encode, String headerKey, String headerValue){
     	this.url = url;
         this.webEncode = encode;
-
         this.header[0] = headerKey;
         this.header[1] = headerValue;
     }

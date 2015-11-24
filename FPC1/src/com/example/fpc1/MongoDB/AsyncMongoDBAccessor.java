@@ -22,7 +22,11 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	private MongoDBTokenOperator mongoDBTokenOperator = new MongoDBTokenOperator();
 
 	/** MongoDBにクエリーを送るためのオペレートインスタンス*/
+	//コンストラクタの引数をしっかり決め打つ　field crop edicode とりあえずコレクション名だけあればよい
 	private MongoDBQueryOperator mongoDBQueryOperator = new MongoDBQueryOperator();
+	private MongoDBQueryOperator fieldQuery = new MongoDBQueryOperator("fieldInfo_sample");
+	private MongoDBQueryOperator ediQuery = new MongoDBQueryOperator("edicode");
+	private MongoDBQueryOperator cropQuery = new MongoDBQueryOperator("cropSituation_sample");
 
 	/** 呼び出しもとのコンテキスト */
 //	private Context context;
@@ -85,6 +89,7 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	    	 String query;
 
 	    	 //キーとクエリーが引数にそろっていなかったらデフォルト値を使ってクエリーを要求
+	    	 /**  それぞれのクエリを生成しておく */
 	    	 if(params.length < 2)
 	    		 query = mongoDBQueryOperator.sendQuery(token, DEFAULT_KEYS, DEFAULT_QUERY);
 	    	 else

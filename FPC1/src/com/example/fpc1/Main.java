@@ -94,22 +94,9 @@ public class Main extends Activity {
         Button previewButton = (Button)this.findViewById(R.id.preview);
   //      Button naviButton = (Button)this.findViewById(R.id.button3);
         Button homebutton = (Button)this.findViewById(R.id.homebutton);
-        Button timebutton = (Button)this.findViewById(R.id.time);
        // text.setText(name);
+        
         // ホーム画面へ
-        
-        timebutton.setOnClickListener(new OnClickListener() {
-        public void onClick(View v)	{
-        	DateTime dt = new DateTime();			
-        	try {
-        		 String t = dt.toString(ISODateTimeFormat.dateHourMinuteSecond());	//String型 "yyyy-MM-dd'T'HH:mm:ss"
-        		 DateTime time = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").parseDateTime(t); //String型 → DateTime型
-        		 Date date = time.toDate(); //DateTime型 → Date型 
-        		 System.out.println(date);
-        	} finally {
-        }}
-        });
-        
         homebutton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             	// メッセージの表示
