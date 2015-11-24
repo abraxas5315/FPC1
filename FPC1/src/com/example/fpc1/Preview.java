@@ -62,7 +62,7 @@ public class Preview extends Activity {
         	});
     	
 
-        Button button2 = (Button)this.findViewById(R.id.button2);
+        Button button2 = (Button)this.findViewById(R.id.preview);
         Button button3 = (Button)this.findViewById(R.id.button3);
 
         // 撮り直し（保存データを削除）

@@ -135,8 +135,8 @@ public class Navigation extends Activity implements LocationListener, SensorEven
 		}
 
         // ボタンを押した時の動作設定
-        Button button1 = (Button)this.findViewById(R.id.button);
-        Button button2 = (Button)this.findViewById(R.id.button2);
+        Button button1 = (Button)this.findViewById(R.id.camera);
+        Button button2 = (Button)this.findViewById(R.id.preview);
         Button homebutton = (Button)this.findViewById(R.id.homebutton);
 
         // ホーム画面へ

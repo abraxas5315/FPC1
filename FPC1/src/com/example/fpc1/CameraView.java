@@ -521,7 +521,7 @@ public class CameraView extends Activity implements OnClickListener, LocationLis
         // コールバック関数の登録
         holder.addCallback(mSurfaceListener);
         // ボタンを押した時の動作設定
-        Button button1 = (Button)this.findViewById(R.id.button1);
+        Button button1 = (Button)this.findViewById(R.id.time);
         button1.setOnClickListener(this);
         //センサーマネージャーの取得
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);

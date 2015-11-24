@@ -3,9 +3,17 @@ package com.example.fpc1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.ISODateTimeFormat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,7 +29,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
 
 public class Main extends Activity {
 	String name="分類なし";
@@ -57,15 +64,7 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.modeselect);
 
-
-	/*	AlertDialog.Builder alertDialog=new AlertDialog.Builder(Main.this);
-		//タイトルを設定する
-		alertDialog.setTitle("位置情報取得中");
-		//メッセージ内容を設定する
-		alertDialog.setMessage("位置情報取得中");
-		//alertDialog.create();
-		alertDialog.show();*/
-
+		
 		String gs = android.provider.Settings.Secure.getString(getContentResolver(),
 		          android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 		if (gs.indexOf("gps", 0) < 0) {
@@ -91,12 +90,26 @@ public class Main extends Activity {
 		//path = getMount_sd() + "/FPCpicture/";
 		//Log.d("path", path);
 
-        Button cameraButton = (Button)this.findViewById(R.id.button);
-        Button previewButton = (Button)this.findViewById(R.id.button2);
+        Button cameraButton = (Button)this.findViewById(R.id.camera);
+        Button previewButton = (Button)this.findViewById(R.id.preview);
   //      Button naviButton = (Button)this.findViewById(R.id.button3);
         Button homebutton = (Button)this.findViewById(R.id.homebutton);
+        Button timebutton = (Button)this.findViewById(R.id.time);
        // text.setText(name);
         // ホーム画面へ
+        
+        timebutton.setOnClickListener(new OnClickListener() {
+        public void onClick(View v)	{
+        	DateTime dt = new DateTime();			
+        	try {
+        		 String t = dt.toString(ISODateTimeFormat.dateHourMinuteSecond());	//String型 "yyyy-MM-dd'T'HH:mm:ss"
+        		 DateTime time = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").parseDateTime(t); //String型 → DateTime型
+        		 Date date = time.toDate(); //DateTime型 → Date型 
+        		 System.out.println(date);
+        	} finally {
+        }}
+        });
+        
         homebutton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             	// メッセージの表示
@@ -136,6 +149,8 @@ public class Main extends Activity {
                 startActivity(intent);
             }
         });
+        
+        
 /*
         // ナビゲート開始
      naviButton.setOnClickListener(new OnClickListener() {

@@ -9,7 +9,7 @@
     tools:context=".ModeSelect" >
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/camera"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
@@ -19,12 +19,12 @@
         android:text="カメラ" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/preview"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_below="@+id/button"
+        android:layout_alignLeft="@+id/camera"
+        android:layout_alignRight="@+id/camera"
+        android:layout_below="@+id/camera"
         android:text="プレビュー" />
 <!-- 
     <Button
@@ -43,7 +43,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="野菜選択" />
-    
 
+    <Button
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/preview"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="60dp"
+        android:layout_toLeftOf="@+id/homebutton"
+        android:text="Button" />
 
 </RelativeLayout>
