@@ -445,13 +445,14 @@ public class CameraView extends Activity implements OnClickListener, LocationLis
         return (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
     							/*ここが大事*/
+    // TODO
     // 画像の回転（縦向きに変換）
     public Bitmap rotate(byte[] data, Camera camera){
     	Log.d("rotate","start");
         Bitmap tmp_bitmap = BitmapFactory.decodeByteArray (data, 0, data.length);
        int width = tmp_bitmap.getWidth ();
         int height = tmp_bitmap.getHeight ();
-    	
+
     	// 回転マトリックス作成（90度回転）  
     	Matrix mat = new Matrix();  
     	mat.postRotate(90);  

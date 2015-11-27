@@ -39,7 +39,6 @@ public class ModeSelect extends Activity implements OnItemLongClickListener{
      //   new DataSend(null).execute();
 
         
-        //for(int i=0; i<100; i++) words.add("hakusai");
         AsyncMongoDBAccessor aa = new AsyncMongoDBAccessor(words);
         aa.execute();
 

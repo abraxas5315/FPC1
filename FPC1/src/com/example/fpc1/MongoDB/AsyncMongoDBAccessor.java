@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.example.fpc1.MongoDB.Response.ResponsecropSituationList;
 import com.example.fpc1.MongoDB.Response.ResponsecropSituationQuery;
+import com.example.fpc1.MongoDB.Response.ResponsefieldInfoQuery;
+import com.example.fpc1.MongoDB.Response.ResponseedicodeQuery;
 import com.google.gson.Gson;
 
 /**
@@ -24,9 +26,9 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	/** MongoDBにクエリーを送るためのオペレートインスタンス*/
 	//コンストラクタの引数をしっかり決め打つ　field crop edicode とりあえずコレクション名だけあればよい
 	private MongoDBQueryOperator mongoDBQueryOperator = new MongoDBQueryOperator();
-	private MongoDBQueryOperator fieldQuery = new MongoDBQueryOperator("fieldInfo_sample");
-	private MongoDBQueryOperator ediQuery = new MongoDBQueryOperator("edicode");
-	private MongoDBQueryOperator cropQuery = new MongoDBQueryOperator("cropSituation_sample");
+	private MongoDBQueryOperator fieldQuery = new MongoDBQueryOperator("fieldInfo_sample");		//receive
+	private MongoDBQueryOperator ediQuery = new MongoDBQueryOperator("edicode");				//receive
+	private MongoDBQueryOperator cropQuery = new MongoDBQueryOperator("cropSituation_sample");	//send 
 
 	/** 呼び出しもとのコンテキスト */
 //	private Context context;
@@ -77,7 +79,7 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	  }
 
 	  @Override
-	  protected Void doInBackground(String... params) {
+	  protected Void doInBackground(String... params) {		//可変長引数
 	    Log.d(TAG, "doInBackground ");
 
 	    try {
@@ -98,6 +100,9 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	    	 Log.d(TAG, "Query is " + query);
 
 	    	 this.responseQuery = query;
+	    	 this.responseQuery = query;
+	    	 this.responseQuery = query;
+	    	 
 
 	    } catch (Exception e) {
 
@@ -118,6 +123,8 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 
 	    Gson gson = new Gson();
 	    ResponsecropSituationList r = gson.fromJson(responseQuery, ResponsecropSituationList.class);
+	    ResponsefieldInfoQuery f = gson.fromJson(responseQuery, ResponsefieldInfoQuery.class);
+	    ResponseedicodeQuery edi = gson.fromJson(responseQuery, ResponseedicodeQuery.class);
 	 
 	    System.out.println (responseQuery);
 	    
