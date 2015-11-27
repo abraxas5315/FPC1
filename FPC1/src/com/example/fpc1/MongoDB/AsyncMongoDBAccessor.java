@@ -37,15 +37,25 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 
 	/** クエリーを送った後のレスポンス */
 	private String responseQuery;
+	private String responseFieldQuery;
+	private String responseediCodeQuery;
+	private String responseCropQuery;
+	
 
 	/** ログ出力に使うタグ定数 */
 	private static final String TAG = "MyAsyncTask";
 
-	/** doInBackgroundのkey引数が無いときに使われるデフォルトキー */
+	/** doInBackgroundのkey引数が無いときに使われるデフォルトキー */		//欲しいもの
 	private static final String DEFAULT_KEYS = "[\"vegeCode\"]";
+	private static final String ediCode_KEYS = "[\"name\"]";
+	private static final String field_KEYS = "[\"fieldID\",\"areaID\",\"userID\"]";
+	private static final String crop_KEYS = "[\"vegeCode\",\"fieldID\",\"areaID\",\"workerID\"]"; //欲しいもの検討
 
-	/** doInBackgroundのquery引数が無いときに使われるデフォルトクエリー */
+	/** doInBackgroundのquery引数が無いときに使われるデフォルトクエリー */	//一致条件等
 	private static final String DEFAULT_QUERY = "{\"workerID\":\"test\"}";
+	private static final String ediCode_QUERY = "{\"vegeCode\":\"vegecode\"}"; //変数を渡す
+	private static final String field_QUERY = "{\"workerID\":\"test\"}";
+	private static final String crop_QUERY = "{\"workerID\":\"test\"}";
 
 
 	public AsyncMongoDBAccessor(List<String> responseList){
@@ -99,9 +109,12 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 
 	    	 Log.d(TAG, "Query is " + query);
 
-	    	 this.responseQuery = query;
-	    	 this.responseQuery = query;
-	    	 this.responseQuery = query;
+	    	 this.responseFieldQuery = query;
+	    	 query = mongoDBQueryOperator.sendQuery(token,"" ,"d");
+	    	 
+	    	 this.responseediCodeQuery = query;
+	    	 
+	    	 this.responseCropQuery = query;
 	    	 
 
 	    } catch (Exception e) {
