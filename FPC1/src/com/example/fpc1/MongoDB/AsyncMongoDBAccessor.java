@@ -1,16 +1,11 @@
 package com.example.fpc1.MongoDB;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.example.fpc1.MongoDB.Response.ResponsecropSituationList;
-import com.example.fpc1.MongoDB.Response.ResponsecropSituationQuery;
-import com.example.fpc1.MongoDB.Response.ResponsefieldInfoQuery;
-import com.example.fpc1.MongoDB.Response.ResponseedicodeQuery;
+import com.example.fpc1.MongoDB.Response.ResponsefieldInfoList;
+import com.example.fpc1.MongoDB.Response.ResponseediCodeQuery;
 import com.google.gson.Gson;
 
 /**
@@ -36,27 +31,24 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	public List<String> responseList;
 
 	/** クエリーを送った後のレスポンス */
-	private String responseQuery;
-	private String responseFieldQuery;
-	private String responseediCodeQuery;
-	private String responseCropQuery;
-	
+	private String responseQuery;	
 
 	/** ログ出力に使うタグ定数 */
 	private static final String TAG = "MyAsyncTask";
 
 	/** doInBackgroundのkey引数が無いときに使われるデフォルトキー */		//欲しいもの
 	private static final String DEFAULT_KEYS = "[\"vegeCode\"]";
+	/*private static final String field_KEYS = "[\"fieldID\",\"areaID\"]";
+	private static final String crop_KEYS = "[\"vegeCode\"]"; 
 	private static final String ediCode_KEYS = "[\"name\"]";
-	private static final String field_KEYS = "[\"fieldID\",\"areaID\",\"userID\"]";
-	private static final String crop_KEYS = "[\"vegeCode\",\"fieldID\",\"areaID\",\"workerID\"]"; //欲しいもの検討
-
+	*/
 	/** doInBackgroundのquery引数が無いときに使われるデフォルトクエリー */	//一致条件等
+	//TODO 変数を渡す処理
 	private static final String DEFAULT_QUERY = "{\"workerID\":\"test\"}";
-	private static final String ediCode_QUERY = "{\"vegeCode\":\"vegecode\"}"; //変数を渡す
-	private static final String field_QUERY = "{\"workerID\":\"test\"}";
-	private static final String crop_QUERY = "{\"workerID\":\"test\"}";
-
+	/*private static final String field_QUERY = "{\"workerID\":\"test\"}";
+	private static final String crop_QUERY = "{\"workerID\":\"test\",\"fieldID\":\"変数 \",\"areaID\":\"変数\"}";
+	private static final String ediCode_QUERY = "{\"vegeCode\":\"変数\"}"; 
+	*/
 
 	public AsyncMongoDBAccessor(List<String> responseList){
 
@@ -101,7 +93,27 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	    	 String query;
 
 	    	 //キーとクエリーが引数にそろっていなかったらデフォルト値を使ってクエリーを要求
-	    	 /**  それぞれのクエリを生成しておく */
+	    	 /**  それぞれのクエリを生成しておく */ 
+	    	 /*
+	    	  switch(params[0]){
+	    	  	case "fieldInfo":
+	    	  		final String field_KEYS = "[\"fieldID\",\"areaID\"]";
+	    	  		final String field_QUERY = "{\"workerID\":\""+params[1]+"\"}";
+	    	  		query = fieldQuery.sendQuery(token, field_KEYS, field_QUERY);
+	    	  		break;
+	    	  	case "cropSituation":
+	    	  		final String crop_KEYS = "[\"vegeCode\"]"; 
+	    	  		final String crop_QUERY = "{\"fieldID\":\""+params[1]+"\",\"areaID\":\""+params[2]+"\",\"workerID\":\""+params[3]+"\"}";
+	    	  		query = cropQuery.sendQuery(token, crop_KEYS, crop_QUERY);
+	    	  		break;
+	    	  	case "ediCode":
+	    	  		final String ediCode_KEYS = "[\"name\"]";
+	    	  		final String ediCode_QUERY = "{\"vegeCode\":\""+params[0]+"\"}";
+	    	  		query = ediQuery.sendQuery(token, ediCode_KEYS, ediCode_QUERY);	    	  		
+	    	  		break;
+	    	  }
+	    	  	*/
+
 	    	 if(params.length < 2)
 	    		 query = mongoDBQueryOperator.sendQuery(token, DEFAULT_KEYS, DEFAULT_QUERY);
 	    	 else
@@ -109,13 +121,7 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 
 	    	 Log.d(TAG, "Query is " + query);
 
-	    	 this.responseFieldQuery = query;
-	    	 query = mongoDBQueryOperator.sendQuery(token,"" ,"d");
-	    	 
-	    	 this.responseediCodeQuery = query;
-	    	 
-	    	 this.responseCropQuery = query;
-	    	 
+	    	 this.responseQuery = query;	    	 	    	 
 
 	    } catch (Exception e) {
 
@@ -133,11 +139,13 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	  @Override
 	  protected void onPostExecute(Void result) {
 	    Log.d(TAG, "onPostExecute - " + result);
-
+	    
+	    //TODO switch文で処理分け
+	    
 	    Gson gson = new Gson();
 	    ResponsecropSituationList r = gson.fromJson(responseQuery, ResponsecropSituationList.class);
-	    ResponsefieldInfoQuery f = gson.fromJson(responseQuery, ResponsefieldInfoQuery.class);
-	    ResponseedicodeQuery edi = gson.fromJson(responseQuery, ResponseedicodeQuery.class);
+	    //ResponsefieldInfoQuery f = gson.fromJson(responseQuery, ResponsefieldInfoQuery.class);
+	    //ResponseedicodeQuery edi = gson.fromJson(responseQuery, ResponseedicodeQuery.class);
 	 
 	    System.out.println (responseQuery);
 	    
@@ -147,8 +155,6 @@ public class AsyncMongoDBAccessor extends AsyncTask<String, String, Void> {
 	    for(int i=0 ; i< r.List.size();i++){
 	    	this.responseList.add (String.valueOf(r.List.get(i).vegeCode));
     	}
-	    System.out.println ( responseList.get(0) );    
-	 
+	    System.out.println ( responseList.get(0) );    	 
 	   }
-
 }

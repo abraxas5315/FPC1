@@ -4,7 +4,8 @@ import java.util.List;
 
 public class ResponsefieldInfoQuery {
 	
-		public List areaID,fieldID ;
-	
-		//public String Response;
+		public String areaID;
+		public String fieldID;
+		public String Response;
+
 	}

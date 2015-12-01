@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,7 +31,8 @@ import com.example.fpc1.MongoDB.AsyncMongoDBAccessor;
 public class ModeSelect extends Activity implements OnItemLongClickListener{
 
 	 List<String> words = new ArrayList<String>();
-
+	 List<String> fInfo = new ArrayList<String>();
+	 List<String> ediCode = new ArrayList<String>();
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +43,26 @@ public class ModeSelect extends Activity implements OnItemLongClickListener{
         
         AsyncMongoDBAccessor aa = new AsyncMongoDBAccessor(words);
         aa.execute();
+        
+        AsyncMongoDBAccessor field = new AsyncMongoDBAccessor(fInfo);
+        //field.execute("fieldInfo",""+uerID+"");
+        field.execute("fieldInfo","test");
+        
+        AsyncMongoDBAccessor vegeSele = new AsyncMongoDBAccessor(words);
+        vegeSele.execute("cropSituation","filedID","areaID","userID");
+        
+        AsyncMongoDBAccessor edi = new AsyncMongoDBAccessor(ediCode);
+        edi.execute(String.valueOf(words));//StringでvegeCodeを渡す向こうで変換
+        
+        /** executeに渡したい引数をセットする */
 
         // リストアダプターを作成
         ListAdapter la = (ListAdapter)
 			new ArrayAdapter<String>(this,
         		android.R.layout.simple_list_item_1, words);
-
+        /*new ArrayAdapter<String>(this,									上記と入れ替える
+        		android.R.layout.simple_list_item_1, ediCode);
+        */
         //作成したリストアダプターをリストビューにセットする
         ListView lv = (ListView)findViewById(R.id.listview);
         lv.setAdapter(la);
@@ -61,6 +77,7 @@ public class ModeSelect extends Activity implements OnItemLongClickListener{
 		View view, int position, long id) {
 		Log.d("onItemClick",
 			"position: " + String.valueOf(position));
+		//TODO words →　ediCode
 		Toast.makeText(this,
 			words.get(position), Toast.LENGTH_SHORT).show();
 
@@ -68,6 +85,7 @@ public class ModeSelect extends Activity implements OnItemLongClickListener{
 		/*モードセレクトへ、渡す値は野菜の名前*/
 
 		//Stringをintentで渡す方法がわからんので...すまんの^^
+		//TODO words →　ediCode
 		int beziInt= String_Int(words.get(position));
 		Intent i = new Intent();
 		setResult(beziInt, i);
